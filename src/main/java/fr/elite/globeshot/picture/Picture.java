@@ -1,12 +1,12 @@
 package fr.elite.globeshot.picture;
 
-import fr.elite.globeshot.Country;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import fr.elite.globeshot.user.Comment;
+import fr.elite.globeshot.world.Country;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Picture {
@@ -15,6 +15,10 @@ public class Picture {
     private Long id;
     private String url;
     private Country country;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) // Propagates operations on `Comment` table
+    @JoinColumn(name = "picture_id") // Simple relation -> picture_id inside `Comment` table
+    private List<Comment> comments = new ArrayList<>();
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }
