@@ -1,9 +1,7 @@
 package fr.elite.globeshot.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import fr.elite.globeshot.picture.Picture;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -15,5 +13,14 @@ public class Comment {
     private Long id;
 
     private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "picture_id")
+    private Picture picture;
+
     private LocalDateTime createdAt = LocalDateTime.now();
 }
